@@ -25,11 +25,16 @@ public class WCRunner {
 
         Configuration conf =  new Configuration();
 
+        conf.set("fs.defaultFS","hdfs://192.168.1.118:8020");
+        conf.set("mapreduce.framework.name","yarn");
+        conf.set("hadoop.tmp.dir","/opt/data/tmp");
+        conf.set("yarn.nodemanager.aux-services","mapreduce_shuffle");
         Job job = Job.getInstance(conf);
+
+        job.setJobName("dashulanのremwi");
 
         //设置整个job所用的那些类在哪个jar包
         job.setJarByClass(WCRunner.class);
-
 
 
         //本job使用的mapper和reducer的类
@@ -45,14 +50,12 @@ public class WCRunner {
         job.setMapOutputValueClass(LongWritable.class);
 
         //指定要处理的输入数据存放路径
-        FileInputFormat.setInputPaths(job,new Path("/wc/srcdata/"));
+        FileInputFormat.setInputPaths(job,new Path("hdfs://192.168.1.118:8020/wc/input/"));
 
-        //指定处理结果的输出数据存放路径
-        FileOutputFormat.setOutputPath(job,new Path("/wc/output/"));
+        //
+        FileOutputFormat.setOutputPath(job,new Path("hdfs://192.168.1.118:8020/wc/output2/"));
 
-
-        job.waitForCompletion(true);
-
+        System.exit(job.waitForCompletion(true)?0:1);
     }
 
 
