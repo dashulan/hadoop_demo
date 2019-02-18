@@ -23,7 +23,7 @@ public class FlowSumMapper extends Mapper<LongWritable, Text, Text, FlowBean> {
         //拿一行数据
         String line = value.toString();
         //切分成各个字段
-        String[] fields = StringUtils.split(line,' ');
+        String[] fields = line.split("\\t+");
 
         String phoneNB = fields[1];
         long u_flow = Long.parseLong(fields[7]);

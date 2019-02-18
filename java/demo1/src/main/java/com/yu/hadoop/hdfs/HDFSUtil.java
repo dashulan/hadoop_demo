@@ -1,6 +1,7 @@
 package com.yu.hadoop.hdfs;
 
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.compress.utils.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.junit.Before;
@@ -97,7 +98,7 @@ public class HDFSUtil {
     }
 
     public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException {
-        Configuration conf = new Configuration();
+       /* Configuration conf = new Configuration();
 
         //也可以在代码中对conf中的配置信息进行手动设置，会覆盖掉配置文件的读取的值
         conf.set("fs.defaultFS","hdfs://192.168.1.118:8020");
@@ -109,8 +110,15 @@ public class HDFSUtil {
 
         FileOutputStream os = new FileOutputStream("D:\\testDemoDir\\hadoop.tar.gz");
 
-        IOUtils.copy(is,os);
+        IOUtils.copy(is,os);*/
 
+        String line = "137 40 20";
+        String[] fields = line.split("\\s+");
+
+        String phoneNB = fields[0];
+        long u_flow = Long.parseLong(fields[1]);
+        long d_flow = Long.parseLong(fields[2]);
+        System.out.println(phoneNB+ "\t"+ u_flow+"\t" + d_flow + "");
 
     }
 

@@ -1,13 +1,14 @@
 package com.yu.hadoop.flowsum;
 
 import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
 
-public class FlowBean implements Writable {
+public class FlowBean implements WritableComparable<FlowBean> {
     
     private String phoneNB;
     private long up_flow;
@@ -77,7 +78,7 @@ public class FlowBean implements Writable {
      * @Author dashulan
      * @Date 22:30 2019/2/16
      **/
- 
+
     public void readFields(DataInput dataInput) throws IOException {
         phoneNB = dataInput.readUTF();
         up_flow = dataInput.readLong();
@@ -87,11 +88,18 @@ public class FlowBean implements Writable {
 
     @Override
     public String toString() {
-        return "FlowBean{" +
+        /*return "FlowBean{" +
                 "phoneNB='" + phoneNB + '\'' +
                 ", up_flow=" + up_flow +
                 ", d_flow=" + d_flow +
                 ", s_flow=" + s_flow +
-                '}';
+                '}';*/
+        return  up_flow + "\t" + d_flow + "\t" +s_flow;
     }
+
+    public int compareTo(FlowBean o) {
+        return this.s_flow > o.s_flow ?-1:1;
+    }
+
+
 }
